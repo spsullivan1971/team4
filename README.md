@@ -1,2 +1,2 @@
-# team4
-This is our fantastic chat app we are very proud of!
+# TEAM SPACE CANDY
+In space no one can hear you chat
