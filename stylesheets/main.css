@@ -123,13 +123,11 @@ body {
   display: flex;
   text-align: center;
   font-size: 3em;
+  color: white;
 }
 
 input {
   color: black;
-}
-.usernameTextBox input {
-  color: white;
 }
 
 .hide {
