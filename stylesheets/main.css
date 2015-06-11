@@ -106,6 +106,9 @@ body {
   font-size: 3em;
 }
 
+input {
+  color: white;
+}
 .usernameTextBox input {
   color: white;
 }

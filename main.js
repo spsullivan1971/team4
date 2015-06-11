@@ -16,8 +16,11 @@ var page ={
   },
 
   initEvents: function(arguments){
-    $('.chatBar').on('keypress', INPUTCLASS, page.enterPress);
+    $('.chatBar').on('keypress', '.chatTextBox', page.messageEnterPress);
+    $('body').on('keypress', '.usernameTextBox', page.usernameEnterPress);
   }
+
+  url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
 
   loadMessages: function () {
     $.ajax({
@@ -58,7 +61,7 @@ var page ={
   },
 
   addOneMessage: function(message){
-    page.loadTemplate("newMessage", message, $('.spaceZone'));
+    page.loadTemplate("newMessage", message, $('.textField'));
   },
 
   addAllMessages: function(listOfMessages){
@@ -74,11 +77,18 @@ var page ={
    return templates[name];
  },
 
- enterPress: function(event){
+ messageEnterPress: function(event){
     if(event.keyCode === 13){
     event.preventDefault();
-    page.addMessage($('input[name="message"]').val());
+    page.addMessage($('.username').text(), $('input[class="chatTextBox"]').val());
     }
   },
+
+  usernameEnterPress: function(event){
+    if(event.keyCode === 13){
+      event.preventDefault();
+      page.loadTemplate('username', $('.username').text(), $('.handleBar'));
+    }
+  }
 
 };
