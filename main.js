@@ -1,6 +1,20 @@
 $(document).ready(function(){
 
   page.init();
+  setInterval(function () {
+    $('.textField').empty();
+    $.ajax({
+      url: page.url,
+      method: 'GET',
+      success: function (data) {
+        console.log("Successfully loaded data");
+        page.addAllMessages(data);
+      },
+      error: function (err) {
+        console.log("Error: ", err)
+      }
+    });
+  }, 2000);
 
 });
 
@@ -13,6 +27,7 @@ var page ={
 
   initStyling: function(arguments){
     page.loadMessages();
+
   },
 
   initEvents: function(arguments){
@@ -93,6 +108,11 @@ var page ={
       $('.chatBar').removeClass('hide');
       $('.handleBar').removeClass('hide');
     }
+  },
+
+  messageRefresh: function(){
+    setInterval(page.loadMessages(), 1000);
+    console.log("Working?")
   }
 
 };

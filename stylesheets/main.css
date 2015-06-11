@@ -33,9 +33,13 @@ body {
 }
 
 .handleBar {
-  background: linear-gradient(#9cc6f2,#1e4873);
+  border-top: white solid 2px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: linear-gradient(cyan,#1e4873);
   width: 100%;
-  height: 50px;
+  height: 29px;
+  border-radius: 0 0 6px 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,26 +47,30 @@ body {
 }
 .arrow_box {
 	position: relative;
-	background: rgba(156, 198, 242, .8)
+	background-color: cyan;
   width: 100px;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: .75em;
 }
 .arrow_box:after {
-	right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	border-color: rgba(139, 213, 128, 0);
-	border-right-color: #8bd580;
-	border-width: 15px;
-	margin-top: -15px;
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-right-color: cyan;
+  border-width: 15px;
+  margin-top: -15px;
+}
+
+.messageContainer:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .textField {
@@ -70,16 +78,27 @@ body {
   height: 90%;
   margin: 0 auto;
   display: block;
+  overflow: scroll;
 }
 .messageContent {
   color: #F8CA00;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .messageContainer {
   width: 100%;
   height: 50px;
+  display: flex;
+  margin-bottom: 10px;
 }
 
+.messageCreator {
+  color: black;
+  width: 20%;
+}
 .chatTextBox {
   width: 80%;
   height: 30px;
@@ -104,13 +123,11 @@ body {
   display: flex;
   text-align: center;
   font-size: 3em;
+  color: white;
 }
 
 input {
   color: black;
-}
-.usernameTextBox input {
-  color: white;
 }
 
 .hide {
