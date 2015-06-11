@@ -65,8 +65,19 @@ body {
 	margin-top: -15px;
 }
 
+.textField {
+  width: 80%;
+  height: 90%;
+  margin: 0 auto;
+  display: block;
+}
 .messageContent {
-  color: yellow;
+  color: #F8CA00;
+}
+
+.messageContainer {
+  width: 100%;
+  height: 50px;
 }
 
 .chatTextBox {
@@ -95,7 +106,7 @@ body {
   font-size: 3em;
 }
 
-input {
+.usernameTextBox input {
   color: white;
 }
 
