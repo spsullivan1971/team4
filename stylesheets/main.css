@@ -130,6 +130,13 @@ input {
   color: black;
 }
 
+.fa-trash-o{
+  margin-right: 10px;
+}
+
+a{
+  color: #F8CA00;
+}
 .hide {
   display: none;
 }
