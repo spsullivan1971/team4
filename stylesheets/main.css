@@ -64,3 +64,13 @@ body {
 	border-width: 15px;
 	margin-top: -15px;
 }
+
+.messageContent {
+  color: yellow;
+}
+
+.chatTextBox {
+  width: 80%;
+  height: 30px;
+  border-radius: 6px;
+}
