@@ -18,7 +18,7 @@ var page ={
   initEvents: function(arguments){
     $('.chatBar').on('keypress', '.chatTextBox', page.messageEnterPress);
     $('body').on('keypress', '.usernameTextBox', page.usernameEnterPress);
-  }
+  },
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
 
@@ -87,7 +87,11 @@ var page ={
   usernameEnterPress: function(event){
     if(event.keyCode === 13){
       event.preventDefault();
-      page.loadTemplate('username', $('.username').text(), $('.handleBar'));
+      page.loadTemplate('username',{ username: $('.usernameTextBox').val() }, $('.handleBar'));
+      $('.landingPage').addClass('hide');
+      $('.spaceZone').removeClass('hide');
+      $('.chatBar').removeClass('hide');
+      $('.handleBar').removeClass('hide');
     }
   }
 
