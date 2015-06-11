@@ -8,5 +8,5 @@ templates.newMessage = [
 ].join("");
 
 templates.username = [
-  "<span>You are <%= username %></span>"
+  "<span>You are <span class='username'><%= username %></span></span>"
 ].join("");

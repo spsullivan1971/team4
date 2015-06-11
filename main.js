@@ -13,11 +13,11 @@ var page ={
 
   initStyling: function(arguments){
     page.loadMessages();
-    // page.loadTemplate('username', USERNAME DATA, $('.handleBar'));
   },
 
   initEvents: function(arguments){
-    $('.chatBar').on('keypress', chatTextBox, page.enterPress);
+    $('.chatBar').on('keypress', '.chatTextBox', page.messageEnterPress);
+    $('body').on('keypress', '.usernameTextBox', page.usernameEnterPress);
   }
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
@@ -61,7 +61,7 @@ var page ={
   },
 
   addOneMessage: function(message){
-    page.loadTemplate("newMessage", message, $('.spaceZone'));
+    page.loadTemplate("newMessage", message, $('.textField'));
   },
 
   addAllMessages: function(listOfMessages){
@@ -77,10 +77,17 @@ var page ={
    return templates[name];
  },
 
- enterPress: function(event){
+ messageEnterPress: function(event){
     if(event.keyCode === 13){
     event.preventDefault();
-    page.addMessage($('input[class="chatTextBox"]').val());
+    page.addMessage($('.username').text(), $('input[class="chatTextBox"]').val());
+    }
+  },
+
+  usernameEnterPress: function(event){
+    if(event.keyCode === 13){
+      event.preventDefault();
+      page.loadTemplate('username', $('.username').text(), $('.handleBar'));
     }
   }
 
