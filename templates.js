@@ -6,3 +6,7 @@ templates.newMessage = [
   "<li class = 'messageCreator arrow_box'><%= username %></li>",
   "</ul>"
 ].join("");
+
+templates.username = [
+  "<span>You are <%= username %></span>"
+].join("");
