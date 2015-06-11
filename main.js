@@ -14,7 +14,7 @@ $(document).ready(function(){
         console.log("Error: ", err)
       }
     });
-  }, 2000);
+  }, 1000);
 
 });
 
@@ -33,6 +33,7 @@ var page ={
   initEvents: function(arguments){
     $('.chatBar').on('keypress', '.chatTextBox', page.messageEnterPress);
     $('body').on('keypress', '.usernameTextBox', page.usernameEnterPress);
+    $('.textField').on('click', 'a', page.deleteItem);
   },
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
@@ -64,6 +65,17 @@ var page ={
       }
     });
   },
+
+  deleteItem: function(event){
+   event.preventDefault();
+   $.ajax({
+     url: page.url + "/" +$(this).closest('li').data('id'),
+     method: 'DELETE',
+     success: function(data){
+       console.log("I work -- deleted")
+     }
+   });
+ },
 
   addMessage: function (username, input) {
     var newMessage = {
