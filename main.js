@@ -61,7 +61,7 @@ var page ={
   },
 
   addOneMessage: function(message){
-    page.loadTemplate("newMessage", message, $('.spaceZone'));
+    page.loadTemplate("newMessage", message, $('.textField'));
   },
 
   addAllMessages: function(listOfMessages){
