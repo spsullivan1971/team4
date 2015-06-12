@@ -64,20 +64,6 @@ var page ={
       }
     });
   },
-  //
-  // currentDataLength: function(){
-  //   $.ajax({
-  //     url: page.url,
-  //     method: 'GET',
-  //     success: function (data) {
-  //
-  //       return data.length;
-  //     },
-  //     error: function (err) {
-  //       console.log("Error: ", err)
-  //     }
-  //   });
-  // },
 
   createMessage: function (newMessage) {
     $.ajax({
@@ -193,7 +179,7 @@ var page ={
           var newUser = _.filter(data, function(el){
             return el.username === $('.username').text();
           });
-          
+
           $('.handleBar').empty();
           _.each(newUser, function(el){
             page.loadTemplate('usernameId', el, $('.handleBar'));
