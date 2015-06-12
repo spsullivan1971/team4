@@ -1,12 +1,9 @@
 var templates = {};
 
 templates.newMessage = [
-  "<ul class = 'messageContainer'>",
-
-  "<li class = 'messageContent' data-id = '<%= _id%>'><a href='#' class='fa fa-trash-o'></a><%= message %></li>",
-
+  "<ul class = 'messageContainer' data-id = '<%= _id%>'>",
   "<li class = 'messageCreator arrow_box'><%= username %></li>",
-  "<li class = 'messageContent' data-id = '<%= _id%>'><%= message %></li>",
+  "<li class = 'messageContent'><%= message %></li>",
   "<li class = 'trash'><a href='#' class='fa fa-trash-o'></a></li>",
   "</ul>"
 ].join("");
@@ -16,6 +13,6 @@ templates.username = [
 ].join("");
 
 templates.usernameId = [
-  "<div class='changeUserName'>Change Space Name</div>",
+  "<div class='changeUserName'><a href='#'>Change Space Name</a></div>",
   "<span>You are <span class='username' data-id = '<%= _id%>'><%= username %></span></span>"
 ].join("");
