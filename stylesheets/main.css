@@ -164,6 +164,11 @@ input {
 a{
   color: #F8CA00;
 }
+
+.changeUserName a{
+  text-decoration: none;
+  
+}
 .hide {
   display: none;
 }

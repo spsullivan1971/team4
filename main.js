@@ -44,7 +44,7 @@ var page ={
   initEvents: function(arguments){
     $('.chatBar').on('keypress', '.chatTextBox', page.messageEnterPress);
     $('body').on('keypress', '.usernameTextBox', page.usernameEnterPress);
-    $('.textField').on('click', 'a', page.deleteItem);
+    $('.textField').on('click', 'a', page.deleteMessage);
   },
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
@@ -65,7 +65,7 @@ var page ={
       }
     });
   },
-  
+
 
   createMessage: function (newMessage) {
     $.ajax({
@@ -92,13 +92,13 @@ var page ={
       return "are you sure?";
     },
 
-  deleteItem: function(event){
+  deleteMessage: function(event){
    event.preventDefault();
 
    if($(this).parent().siblings('.messageCreator').text() === $('.username').text()){
 
    $.ajax({
-     url: page.url + "/" +$(this).closest('li').data('id'),
+     url: page.url + "/" +$(this).closest('.messageContainer').data('id'),
      method: 'DELETE',
      success: function(data){
        console.log("I work -- deleted")
