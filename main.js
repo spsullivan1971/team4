@@ -68,6 +68,9 @@ var page ={
 
   deleteItem: function(event){
    event.preventDefault();
+
+   if($(this).parent().siblings('.messageCreator').text() === $('.username').text()){
+
    $.ajax({
      url: page.url + "/" +$(this).closest('li').data('id'),
      method: 'DELETE',
@@ -75,12 +78,14 @@ var page ={
        console.log("I work -- deleted")
      }
    });
+ }
  },
 
   addMessage: function (username, input) {
     var newMessage = {
         username: username,
-        message: input
+        message: input,
+        time: Date()
         }
     page.createMessage(newMessage);
 
