@@ -33,6 +33,7 @@ var page ={
   init: function(arguments){
     page.initStyling();
     page.initEvents();
+    window.onbeforeunload = page.windowLogOut;
   },
 
   initStyling: function(arguments){
@@ -78,6 +79,17 @@ var page ={
       }
     });
   },
+
+  windowLogOut: function(){
+      $.ajax({
+        url: page.loginURL + "/" +$('.username').data('id'),
+        method: 'DELETE',
+        success: function(data){
+          console.log("what youre looking for")
+        }
+      });
+      return "are you sure?";
+    },
 
   deleteItem: function(event){
    event.preventDefault();
