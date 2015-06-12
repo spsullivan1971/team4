@@ -8,13 +8,6 @@ $(document).ready(function(){
       url: page.url,
       method: 'GET',
       success: function (data) {
-<<<<<<< HEAD
-        if(data.length !== page.currentDataLength()){
-        console.log("Successfully loaded new data");
-        $('.textField').empty();
-        page.addAllMessages(data);
-        }
-=======
         if(data.length !== currentData.length){
         console.log("Successfully loaded new data");
         console.log(data.length);
@@ -25,7 +18,6 @@ $(document).ready(function(){
       }else{
         console.log("this is the else statement")
       }
->>>>>>> b642c221ac460270dc17f043677233e4070d6eda
       },
       error: function (err) {
         console.log("Error: ", err)
@@ -65,24 +57,7 @@ var page ={
       success: function (data) {
         console.log("Successfully loaded data");
         page.addAllMessages(data);
-<<<<<<< HEAD
-        console.log(data.length);
-      },
-      error: function (err) {
-        console.log("Error: ", err)
-      }
-    });
-  },
-
-  currentDataLength: function(){
-    $.ajax({
-      url: page.url,
-      method: 'GET',
-      success: function (data) {
-        return data.length;
-=======
         currentData = data;
->>>>>>> b642c221ac460270dc17f043677233e4070d6eda
       },
       error: function (err) {
         console.log("Error: ", err)
@@ -130,11 +105,7 @@ var page ={
        console.log("I work -- deleted")
      }
    });
-<<<<<<< HEAD
- }
-=======
   }
->>>>>>> b642c221ac460270dc17f043677233e4070d6eda
  },
 
   addMessage: function (username, input) {
@@ -222,7 +193,7 @@ var page ={
           var newUser = _.filter(data, function(el){
             return el.username === $('.username').text();
           });
-          
+
           $('.handleBar').empty();
           _.each(newUser, function(el){
             page.loadTemplate('usernameId', el, $('.handleBar'));
