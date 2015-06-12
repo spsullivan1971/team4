@@ -48,9 +48,9 @@ var page ={
     $('.handleBar').on('click', 'a', page.windowLogOut);
   },
 
-  url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/spacecandy",
 
-  loginURL: "http://tiy-fee-rest.herokuapp.com/collections/spacechatlogins",
+  loginURL: "http://tiy-fee-rest.herokuapp.com/collections/spacecandylogins",
 
   loadMessages: function () {
     $.ajax({
