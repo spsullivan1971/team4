@@ -11,3 +11,8 @@ templates.newMessage = [
 templates.username = [
   "<span>You are <span class='username'><%= username %></span></span>"
 ].join("");
+
+templates.usernameId = [
+  "<div class='changeUserName'>Change Space Name</div>",
+  "<span>You are <span class='username' data-id = '<%= _id%>'><%= username %></span></span>"
+].join("");
