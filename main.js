@@ -65,6 +65,7 @@ var page ={
       }
     });
   },
+  
 
   createMessage: function (newMessage) {
     $.ajax({
