@@ -45,6 +45,7 @@ var page ={
     $('.chatBar').on('keypress', '.chatTextBox', page.messageEnterPress);
     $('body').on('keypress', '.usernameTextBox', page.usernameEnterPress);
     $('.textField').on('click', 'a', page.deleteMessage);
+    $('.handleBar').on('click', 'a', page.windowLogOut);
   },
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
@@ -86,7 +87,11 @@ var page ={
         url: page.loginURL + "/" +$('.username').data('id'),
         method: 'DELETE',
         success: function(data){
-          console.log("what youre looking for")
+          $('.landingPage').removeClass('hide');
+          $('.spaceZone').addClass('hide');
+          $('.chatBar').addClass('hide');
+          $('.handleBar').addClass('hide');
+          $('.handleBar').html('');
         }
       });
       return "are you sure?";
