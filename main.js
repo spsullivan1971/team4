@@ -61,7 +61,6 @@ var page ={
       url: page.url,
       method: 'GET',
       success: function (data) {
-        console.log(data.length);
         return data.length;
       },
       error: function (err) {
@@ -103,7 +102,7 @@ var page ={
     var newMessage = {
         username: username,
         message: input,
-        time: Date()
+        time: Math.floor((new Date()).getTime() / 1000)
         }
     page.createMessage(newMessage);
 
@@ -115,7 +114,8 @@ var page ={
   },
 
   addAllMessages: function(listOfMessages){
-    _.each(listOfMessages, page.addOneMessage);
+    _.sortBy(listOfMessages, listOfMessages.time);
+    _.each(listOfMessages.reverse(), page.addOneMessage);
   },
 
   loadTemplate: function(tmplName, data, $target){
