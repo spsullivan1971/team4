@@ -14,6 +14,7 @@ $(document).ready(function(){
         console.log(currentData.length);
         $('.textField').empty();
         page.addAllMessages(data);
+
       }else{
         console.log("this is the else statement")
       }
@@ -32,6 +33,7 @@ var page ={
   init: function(arguments){
     page.initStyling();
     page.initEvents();
+    window.onbeforeunload = page.windowLogOut;
   },
 
   initStyling: function(arguments){
@@ -92,6 +94,17 @@ var page ={
     });
   },
 
+  windowLogOut: function(){
+      $.ajax({
+        url: page.loginURL + "/" +$('.username').data('id'),
+        method: 'DELETE',
+        success: function(data){
+          console.log("what youre looking for")
+        }
+      });
+      return "are you sure?";
+    },
+
   deleteItem: function(event){
    event.preventDefault();
 
@@ -150,7 +163,6 @@ var page ={
           url: page.loginURL,
           method: 'GET',
           success: function (data) {
-
             usernameArray = _.filter(data, function(el){
               return el.username === $('.usernameTextBox').val();
             });
@@ -170,6 +182,7 @@ var page ={
                     $('.chatBar').removeClass('hide');
                     $('.handleBar').removeClass('hide');
                     $('.textField').animate({ scrollTop: $('.textField')[0].scrollHeight}, 5000);
+                    page.addDataIdToUsername();
                   },
                   error: function (err) {
                     console.log("Error occurred: ", err);
@@ -182,6 +195,24 @@ var page ={
           }
         });
       }
+    },
+
+    addDataIdToUsername: function(){
+      $.ajax({
+        url: page.loginURL,
+        method: 'GET',
+        success: function (data) {
+          var newUser = _.filter(data, function(el){
+            return el.username === $('.username').text();
+          });
+
+          $('.handleBar').empty();
+          _.each(newUser, function(el){
+            page.loadTemplate('usernameId', el, $('.handleBar'));
+          });
+
+          }
+        });
     }
 
   // updateUsername: function(oldUserName, newUserName){
