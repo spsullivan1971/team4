@@ -2,19 +2,22 @@ $(document).ready(function(){
 
   page.init();
   setInterval(function () {
-    $('.textField').empty();
+
     $.ajax({
       url: page.url,
       method: 'GET',
       success: function (data) {
-        console.log("Successfully loaded data");
+        if(data.length !== page.currentDataLength()){
+        console.log("Successfully loaded new data");
+        $('.textField').empty();
         page.addAllMessages(data);
+        }
       },
       error: function (err) {
         console.log("Error: ", err)
       }
     });
-  }, 1000);
+  }, 500);
 
 });
 
@@ -45,6 +48,21 @@ var page ={
       success: function (data) {
         console.log("Successfully loaded data");
         page.addAllMessages(data);
+        console.log(data.length);
+      },
+      error: function (err) {
+        console.log("Error: ", err)
+      }
+    });
+  },
+
+  currentDataLength: function(){
+    $.ajax({
+      url: page.url,
+      method: 'GET',
+      success: function (data) {
+        console.log(data.length);
+        return data.length;
       },
       error: function (err) {
         console.log("Error: ", err)
