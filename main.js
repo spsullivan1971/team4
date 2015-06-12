@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+  var currentData = [];
   page.init();
   setInterval(function () {
 
@@ -7,11 +8,24 @@ $(document).ready(function(){
       url: page.url,
       method: 'GET',
       success: function (data) {
+<<<<<<< HEAD
         if(data.length !== page.currentDataLength()){
         console.log("Successfully loaded new data");
         $('.textField').empty();
         page.addAllMessages(data);
         }
+=======
+        if(data.length !== currentData.length){
+        console.log("Successfully loaded new data");
+        console.log(data.length);
+        console.log(currentData.length);
+        $('.textField').empty();
+        page.addAllMessages(data);
+
+      }else{
+        console.log("this is the else statement")
+      }
+>>>>>>> b642c221ac460270dc17f043677233e4070d6eda
       },
       error: function (err) {
         console.log("Error: ", err)
@@ -22,6 +36,7 @@ $(document).ready(function(){
 });
 
 var page ={
+
 
   init: function(arguments){
     page.initStyling();
@@ -41,6 +56,8 @@ var page ={
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
 
+  loginURL: "http://tiy-fee-rest.herokuapp.com/collections/spacechatlogins",
+
   loadMessages: function () {
     $.ajax({
       url: page.url,
@@ -48,6 +65,7 @@ var page ={
       success: function (data) {
         console.log("Successfully loaded data");
         page.addAllMessages(data);
+<<<<<<< HEAD
         console.log(data.length);
       },
       error: function (err) {
@@ -62,12 +80,29 @@ var page ={
       method: 'GET',
       success: function (data) {
         return data.length;
+=======
+        currentData = data;
+>>>>>>> b642c221ac460270dc17f043677233e4070d6eda
       },
       error: function (err) {
         console.log("Error: ", err)
       }
     });
   },
+  //
+  // currentDataLength: function(){
+  //   $.ajax({
+  //     url: page.url,
+  //     method: 'GET',
+  //     success: function (data) {
+  //
+  //       return data.length;
+  //     },
+  //     error: function (err) {
+  //       console.log("Error: ", err)
+  //     }
+  //   });
+  // },
 
   createMessage: function (newMessage) {
     $.ajax({
@@ -95,7 +130,11 @@ var page ={
        console.log("I work -- deleted")
      }
    });
+<<<<<<< HEAD
  }
+=======
+  }
+>>>>>>> b642c221ac460270dc17f043677233e4070d6eda
  },
 
   addMessage: function (username, input) {
@@ -131,23 +170,85 @@ var page ={
     if(event.keyCode === 13){
     event.preventDefault();
     page.addMessage($('.username').text(), $('input[class="chatTextBox"]').val());
+    $('.textField').animate({ scrollTop: $('.textField')[0].scrollHeight}, 2000);
     }
   },
 
   usernameEnterPress: function(event){
     if(event.keyCode === 13){
-      event.preventDefault();
-      page.loadTemplate('username',{ username: $('.usernameTextBox').val() }, $('.handleBar'));
-      $('.landingPage').addClass('hide');
-      $('.spaceZone').removeClass('hide');
-      $('.chatBar').removeClass('hide');
-      $('.handleBar').removeClass('hide');
-    }
-  },
+        $.ajax({
+          url: page.loginURL,
+          method: 'GET',
+          success: function (data) {
+            usernameArray = _.filter(data, function(el){
+              return el.username === $('.usernameTextBox').val();
+            });
 
-  messageRefresh: function(){
-    setInterval(page.loadMessages(), 1000);
-    console.log("Working?")
-  }
+            if(usernameArray.length > 0){
+              alert("Username taken, try again");
+            }else{
+                $.ajax({
+                  url: page.loginURL,
+                  method: 'POST',
+                  data: { username: $('.usernameTextBox').val() },
+                  success: function (data) {
+                    event.preventDefault();
+                    page.loadTemplate('username',{ username: $('.usernameTextBox').val() }, $('.handleBar'));
+                    $('.landingPage').addClass('hide');
+                    $('.spaceZone').removeClass('hide');
+                    $('.chatBar').removeClass('hide');
+                    $('.handleBar').removeClass('hide');
+                    $('.textField').animate({ scrollTop: $('.textField')[0].scrollHeight}, 5000);
+                    page.addDataIdToUsername();
+                  },
+                  error: function (err) {
+                    console.log("Error occurred: ", err);
+                  }
+                });
+              }
+            },
+          error: function (err) {
+            console.log("Error: ", err)
+          }
+        });
+      }
+    },
+
+    addDataIdToUsername: function(){
+      $.ajax({
+        url: page.loginURL,
+        method: 'GET',
+        success: function (data) {
+          var newUser = _.filter(data, function(el){
+            return el.username === $('.username').text();
+          });
+          
+          $('.handleBar').empty();
+          _.each(newUser, function(el){
+            page.loadTemplate('usernameId', el, $('.handleBar'));
+          });
+
+          }
+        });
+    }
+
+  // updateUsername: function(oldUserName, newUserName){
+  //
+  //   _.each(page.currentData(), function(){
+  //     if(page.currentData().username === oldUserName){
+  //       page.currentData().username = newUserName;
+  //
+  //       $.ajax({
+  //         url: page.url + '/' + itemId,
+  //         method: 'PUT',
+  //         data: updatedItem,
+  //         success: function (data) {
+  //
+  //         },
+  //         error: function (err) {}
+  //       });
+  //     }
+  //   })
+  //   }
 
 };
