@@ -29,7 +29,7 @@ var page ={
   },
 
   initStyling: function(arguments){
-    page.loadMessages();
+    // page.loadMessages();
 
   },
 
@@ -41,6 +41,8 @@ var page ={
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacechat",
 
+  loginURL: "http://tiy-fee-rest.herokuapp.com/collections/spacechatlogins",
+
   loadMessages: function () {
     $.ajax({
       url: page.url,
@@ -48,7 +50,6 @@ var page ={
       success: function (data) {
         console.log("Successfully loaded data");
         page.addAllMessages(data);
-        console.log(data.length);
       },
       error: function (err) {
         console.log("Error: ", err)
@@ -61,6 +62,7 @@ var page ={
       url: page.url,
       method: 'GET',
       success: function (data) {
+
         return data.length;
       },
       error: function (err) {
@@ -68,6 +70,21 @@ var page ={
       }
     });
   },
+
+  // currentData: function(){
+  //   var myvar;
+  //   $.ajax({
+  //     url: page.url,
+  //     method: 'GET',
+  //     success: function (data) {
+  //       myvar = data;
+  //     },
+  //     error: function (err) {
+  //       console.log("Error: ", err)
+  //     }
+  //   });
+  //   return myvar;
+  // },
 
   createMessage: function (newMessage) {
     $.ajax({
@@ -95,7 +112,7 @@ var page ={
        console.log("I work -- deleted")
      }
    });
- }
+  }
  },
 
   addMessage: function (username, input) {
@@ -136,18 +153,60 @@ var page ={
 
   usernameEnterPress: function(event){
     if(event.keyCode === 13){
-      event.preventDefault();
-      page.loadTemplate('username',{ username: $('.usernameTextBox').val() }, $('.handleBar'));
-      $('.landingPage').addClass('hide');
-      $('.spaceZone').removeClass('hide');
-      $('.chatBar').removeClass('hide');
-      $('.handleBar').removeClass('hide');
-    }
-  },
+        $.ajax({
+          url: page.loginURL,
+          method: 'GET',
+          success: function (data) {
 
-  messageRefresh: function(){
-    setInterval(page.loadMessages(), 1000);
-    console.log("Working?")
-  }
+            usernameArray = _.filter(data, function(el){
+              return el.username === $('.usernameTextBox').val();
+            });
+
+            if(usernameArray.length > 0){
+              alert("Username taken, try again");
+            }else{
+                $.ajax({
+                  url: page.loginURL,
+                  method: 'POST',
+                  data: { username: $('.usernameTextBox').val() },
+                  success: function (data) {
+                    event.preventDefault();
+                    page.loadTemplate('username',{ username: $('.usernameTextBox').val() }, $('.handleBar'));
+                    $('.landingPage').addClass('hide');
+                    $('.spaceZone').removeClass('hide');
+                    $('.chatBar').removeClass('hide');
+                    $('.handleBar').removeClass('hide');
+                  },
+                  error: function (err) {
+                    console.log("Error occurred: ", err);
+                  }
+                });
+              }
+            },
+          error: function (err) {
+            console.log("Error: ", err)
+          }
+        });
+      }
+    }
+
+  // updateUsername: function(oldUserName, newUserName){
+  //
+  //   _.each(page.currentData(), function(){
+  //     if(page.currentData().username === oldUserName){
+  //       page.currentData().username = newUserName;
+  //
+  //       $.ajax({
+  //         url: page.url + '/' + itemId,
+  //         method: 'PUT',
+  //         data: updatedItem,
+  //         success: function (data) {
+  //
+  //         },
+  //         error: function (err) {}
+  //       });
+  //     }
+  //   })
+  //   }
 
 };
