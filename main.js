@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+  var currentData = [];
   page.init();
   setInterval(function () {
 
@@ -7,11 +8,15 @@ $(document).ready(function(){
       url: page.url,
       method: 'GET',
       success: function (data) {
-        if(data.length !== page.currentDataLength()){
+        if(data.length !== currentData.length){
         console.log("Successfully loaded new data");
+        console.log(data.length);
+        console.log(currentData.length);
         $('.textField').empty();
         page.addAllMessages(data);
-        }
+      }else{
+        console.log("this is the else statement")
+      }
       },
       error: function (err) {
         console.log("Error: ", err)
@@ -23,13 +28,14 @@ $(document).ready(function(){
 
 var page ={
 
+
   init: function(arguments){
     page.initStyling();
     page.initEvents();
   },
 
   initStyling: function(arguments){
-    // page.loadMessages();
+    page.loadMessages();
 
   },
 
@@ -50,40 +56,26 @@ var page ={
       success: function (data) {
         console.log("Successfully loaded data");
         page.addAllMessages(data);
+        currentData = data;
       },
       error: function (err) {
         console.log("Error: ", err)
       }
     });
   },
-
-  currentDataLength: function(){
-    $.ajax({
-      url: page.url,
-      method: 'GET',
-      success: function (data) {
-
-        return data.length;
-      },
-      error: function (err) {
-        console.log("Error: ", err)
-      }
-    });
-  },
-
-  // currentData: function(){
-  //   var myvar;
+  //
+  // currentDataLength: function(){
   //   $.ajax({
   //     url: page.url,
   //     method: 'GET',
   //     success: function (data) {
-  //       myvar = data;
+  //
+  //       return data.length;
   //     },
   //     error: function (err) {
   //       console.log("Error: ", err)
   //     }
   //   });
-  //   return myvar;
   // },
 
   createMessage: function (newMessage) {
@@ -148,6 +140,7 @@ var page ={
     if(event.keyCode === 13){
     event.preventDefault();
     page.addMessage($('.username').text(), $('input[class="chatTextBox"]').val());
+    $('.textField').animate({ scrollTop: $('.textField')[0].scrollHeight}, 2000);
     }
   },
 
@@ -176,6 +169,7 @@ var page ={
                     $('.spaceZone').removeClass('hide');
                     $('.chatBar').removeClass('hide');
                     $('.handleBar').removeClass('hide');
+                    $('.textField').animate({ scrollTop: $('.textField')[0].scrollHeight}, 5000);
                   },
                   error: function (err) {
                     console.log("Error occurred: ", err);
