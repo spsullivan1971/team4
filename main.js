@@ -1,29 +1,8 @@
 $(document).ready(function(){
 
   var currentData = [];
+  var currentUsers = [];
   page.init();
-  setInterval(function () {
-
-    $.ajax({
-      url: page.url,
-      method: 'GET',
-      success: function (data) {
-        if(data.length !== currentData.length){
-        console.log("Successfully loaded new data");
-        console.log(data.length);
-        console.log(currentData.length);
-        $('.textField').empty();
-        page.addAllMessages(data);
-
-      }else{
-        console.log("this is the else statement")
-      }
-      },
-      error: function (err) {
-        console.log("Error: ", err)
-      }
-    });
-  }, 500);
 
 });
 
@@ -33,12 +12,55 @@ var page ={
   init: function(arguments){
     page.initStyling();
     page.initEvents();
+
+    //This checks for new messages and loads messages if found
+    setInterval(function () {
+
+      $.ajax({
+        url: page.url,
+        method: 'GET',
+        success: function (data) {
+
+          if(data.length !== currentData.length){
+          console.log("Successfully loaded new data");
+          console.log(data.length);
+          console.log(currentData.length);
+          $('.textField').empty();
+          page.addAllMessages(data);
+        }
+        },
+        error: function (err) {
+          console.log("Error: ", err)
+        }
+      });
+    }, 1000);
+
+
+    //This checks for new users and loads users if found
+    setInterval(function () {
+
+      $.ajax({
+        url: page.loginURL,
+        method: 'GET',
+        success: function (data) {
+          if(data.length !== currentUsers.length){
+          $('.listOfOtherUsers').empty();
+          page.loadOtherUsers(data);
+          }
+        },
+        error: function (err) {
+          console.log("Error: ", err)
+        }
+      });
+    }, 2000);
+
+    //Run when user tries to leave page
     window.onbeforeunload = page.windowLogOut;
   },
 
   initStyling: function(arguments){
     page.loadMessages();
-
+    page.loadOtherUsers();
   },
 
   initEvents: function(arguments){
@@ -91,10 +113,11 @@ var page ={
           $('.spaceZone').addClass('hide');
           $('.chatBar').addClass('hide');
           $('.handleBar').addClass('hide');
+          $('.usersLoggedIn').addClass('hide');
           $('.handleBar').html('');
         }
       });
-      return "are you sure?";
+      return "Are you want to return to Earth?";
     },
 
   deleteMessage: function(event){
@@ -173,6 +196,7 @@ var page ={
                     $('.spaceZone').removeClass('hide');
                     $('.chatBar').removeClass('hide');
                     $('.handleBar').removeClass('hide');
+                    $('.usersLoggedIn').removeClass('hide');
                     $('.textField').animate({ scrollTop: $('.textField')[0].scrollHeight}, 5000);
                     page.addDataIdToUsername();
                   },
@@ -205,25 +229,23 @@ var page ={
 
           }
         });
-    }
+    },
 
-  // updateUsername: function(oldUserName, newUserName){
-  //
-  //   _.each(page.currentData(), function(){
-  //     if(page.currentData().username === oldUserName){
-  //       page.currentData().username = newUserName;
-  //
-  //       $.ajax({
-  //         url: page.url + '/' + itemId,
-  //         method: 'PUT',
-  //         data: updatedItem,
-  //         success: function (data) {
-  //
-  //         },
-  //         error: function (err) {}
-  //       });
-  //     }
-  //   })
-  //   }
+    loadOtherUsers: function(){
+      $.ajax({
+        url: page.loginURL,
+        method: 'GET',
+        success: function (data) {
+          currentUsers = data;
+          var otherUsers = _.filter(data, function(el){
+            return el.username !== $('.username').text();
+          });
+          _.each(otherUsers, function(el){
+            page.loadTemplate('otherUsers', el, $('.listOfOtherUsers'));
+          });
+
+          }
+        });
+    }
 
 };

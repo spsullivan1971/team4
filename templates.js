@@ -16,3 +16,7 @@ templates.usernameId = [
   "<div class='changeUserName'><a href='#'>Change Space Name</a></div>",
   "<span>You are <span class='username' data-id = '<%= _id%>'><%= username %></span></span>"
 ].join("");
+
+templates.otherUsers = [
+  "<li><%= username %></li>"
+].join("");
