@@ -158,6 +158,29 @@ a{
 
 
 }
+}
+
+.usersLoggedIn{
+  width: 100%;
+  border-radius: 0 0 6px 6px;
+  border-top: white solid 2px;
+  color: white;
+}
+
+h3{
+  text-align: center;
+  margin: 5px;
+}
+
+.listOfOtherUsers{
+  width: 100%;
+}
+
+.listOfOtherUsers li{
+  display:inline-block;
+  margin: 5px;
+
+}
 .hide {
   display: none;
 }
