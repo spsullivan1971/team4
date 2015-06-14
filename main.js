@@ -3,7 +3,7 @@ $(document).ready(function(){
   var currentData = [];
   var currentUsers = [];
   page.init();
-  
+
 
 });
 
@@ -24,10 +24,9 @@ var page ={
 
           if(data.length !== currentData.length){
           console.log("Successfully loaded new data");
-          console.log(data.length);
-          console.log(currentData.length);
           $('.textField').empty();
           page.addAllMessages(data);
+          currentData = data;
         }
         },
         error: function (err) {
@@ -45,8 +44,10 @@ var page ={
         method: 'GET',
         success: function (data) {
           if(data.length !== currentUsers.length){
+          console.log("Successfully loaded new users")
           $('.listOfOtherUsers').empty();
           page.loadOtherUsers(data);
+          currentUsers = data;
           }
         },
         error: function (err) {

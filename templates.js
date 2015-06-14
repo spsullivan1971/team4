@@ -9,12 +9,12 @@ templates.newMessage = [
 ].join("");
 
 templates.username = [
-  "<span class='youAreText'>...you are<span class='username'><%= username %></span></span>"
+  "<span class='youAreText'>...you are &nbsp;<span class='username'><%= username %></span></span>"
 ].join("");
 
 templates.usernameId = [
   "<div class='changeUserName'><a href='#' class='fa fa-sign-out'></a></div>",
-  "<span class='youAreText'>...you are <span class='username' data-id = '<%= _id%>'><%= username %></span></span>"
+  "<span class='youAreText'>...you are &nbsp;<span class='username' data-id = '<%= _id%>'><%= username %></span></span>"
 ].join("");
 
 templates.otherUsers = [
