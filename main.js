@@ -3,6 +3,7 @@ $(document).ready(function(){
   var currentData = [];
   var currentUsers = [];
   page.init();
+  
 
 });
 
