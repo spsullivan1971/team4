@@ -3,7 +3,7 @@ var templates = {};
 templates.newMessage = [
   "<ul class = 'messageContainer' data-id = '<%= _id%>'>",
   "<li class = 'messageCreator arrow_box'><%= username %></li>",
-  "<li class = 'messageContent'><%= message %></li>",
+  "<li class = 'messageContent'><%- message %></li>",
   "<li class = 'trash'><a href='#' class='fa fa-times'></a></li>",
   "</ul>"
 ].join("");

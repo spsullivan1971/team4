@@ -26,6 +26,7 @@ var page ={
           console.log("Successfully loaded new data");
           $('.textField').empty();
           page.addAllMessages(data);
+          $('.textField').scrollTop($('.textField')[0].scrollHeight);
           currentData = data;
         }
         },
@@ -74,7 +75,7 @@ var page ={
 
   url: "http://tiy-fee-rest.herokuapp.com/collections/spacecandy",
 
-  loginURL: "http://tiy-fee-rest.herokuapp.com/collections/spacecandylogins",
+  loginURL: "http://tiy-fee-rest.herokuapp.com/collections/spacecandyusernames",
 
   loadMessages: function () {
     $.ajax({
